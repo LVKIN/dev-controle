@@ -18,7 +18,7 @@ const Header = () => {
     <header className="w-full flex items-center px-2 py-4 bg-white h-20 border-b border-gray-200 shadow-sm absolute left-0 top-0">
       <div className="flex justify-between items-center w-full max-w-[90%] mx-auto lg:max-w-7xl">
         <Link href="/">
-          <h1 className="font-bold text-2xl text-black">DEV <span className="text-blue-600">Controle</span></h1> 
+          <h1 className="font-bold text-2xl text-black">DEV <span className="text-blue-600">Controle</span></h1>
         </Link>
 
         {status === "loading" && (
@@ -38,7 +38,7 @@ const Header = () => {
                 <FiUser size={24} color="#1e1e1e" />
               </Link>
               <span className="text-sm text-gray-800">
-                Olá, {data?.user?.name}
+                Olá, <strong>{data?.user?.name}</strong>
               </span>
             </button>
             <button onClick={handleLogout}>
