@@ -1,9 +1,13 @@
 "use client";
+import { toast } from "sonner"
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "../Input";
+import api from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { set } from "zod/v4";
 
 const SCHEMA = z.object({
   fullName: z
@@ -29,8 +33,20 @@ const NewCustomerForm = () => {
         resolver: zodResolver(SCHEMA)
     });
 
-    const handleRegisterCustomer = (data: FormData) => {
-        console.log(data);
+    const router = useRouter();
+    const handleRegisterCustomer = async ({ fullName, email, phone, address }: FormData) => {
+        await api.post("/api/customer", {
+            fullName,
+            email,
+            phone,
+            address
+        });
+
+        toast.success("Cliente cadastrado com sucesso!");
+
+        setTimeout(() => {
+            router.push("/dashboard/customers");
+        }, 3000);
     };
 
     return (
