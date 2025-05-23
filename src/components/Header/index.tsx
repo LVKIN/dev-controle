@@ -37,7 +37,7 @@ const Header = () => {
               <Link href="/dashboard">
                 <FiUser size={24} color="#1e1e1e" />
               </Link>
-              <span className="text-sm text-gray-800">
+              <span className="hidden sm:block sm:text-sm sm:text-gray-800">
                 Olá, <strong>{data?.user?.name}</strong>
               </span>
             </button>
