@@ -3,10 +3,10 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 import Container from "@/components/Container";
-import Link from "next/link";
 import TicketListItem from "@/components/TicketListItem";
+import ButtonLink from "@/components/ButtonLink";
 
-export default async  function Dashboard() {
+export default async function Dashboard() {
   const session = await getServerSession(authOptions);
 
   if (!session) return redirect("/api/auth/signin");
@@ -16,9 +16,7 @@ export default async  function Dashboard() {
       <main className="w-full">
         <div className="flex justify-between items-center w-full mt-8">
           <h1 className="font-bold text-3xl">Chamados</h1>
-          <Link className="font-medium text-base text-white bg-blue-600 px-5 py-1.5 rounded" href="/dashboard/new"> 
-            Novo chamado
-          </Link>
+          <ButtonLink linkRedirect="/dashboard/new" label="Novo chamado" />
         </div>
 
         <table className="min-w-full mt-5">
