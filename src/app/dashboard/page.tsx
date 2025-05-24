@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import prisma from "@/lib/prisma";
 
 import Container from "@/components/Container";
 import TicketListItem from "@/components/TicketListItem";
@@ -10,6 +11,15 @@ export default async function Dashboard() {
   const session = await getServerSession(authOptions);
 
   if (!session) return redirect("/api/auth/signin");
+
+  const tickets = await prisma.ticket.findMany({
+    where: {
+      userId: session.user.id
+    },
+    include: {
+      customer: true
+    }
+  });
 
   return (
     <Container>
@@ -28,13 +38,15 @@ export default async function Dashboard() {
               <th className="font-medium text-sm text-right py-2">AÇÕES</th>
             </tr>
           </thead>
-          <tbody className="">
-            <TicketListItem />
-            <TicketListItem />
-            <TicketListItem />
-            <TicketListItem />
-            <TicketListItem />
-            <TicketListItem />
+          <tbody className="w-full">
+            {tickets?.map(({ id, name, status, created_at, customer }) => (
+              <TicketListItem
+                key={id}
+                customerName={customer?.name ?? name}
+                createdAt={created_at}
+                status={status}
+              />
+            ))}
           </tbody>
         </table>
       </main>

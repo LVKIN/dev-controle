@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "../Input";
 import api from "@/lib/api";
 import { useRouter } from "next/navigation";
-import { set } from "zod/v4";
 
 const SCHEMA = z.object({
   fullName: z
